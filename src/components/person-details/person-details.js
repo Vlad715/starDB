@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import SwapiService from '../../services/swapi-service.js';
-import Spinner from '../spinner/spinner.js';
 
 import './person-details.css';
+import SwapiService from "../../services/swapi-service";
+import ErrorButton from "../error-button/error-button";
 
 export default class PersonDetails extends Component {
 
@@ -35,23 +35,20 @@ export default class PersonDetails extends Component {
       });
   }
 
-
   render() {
 
-    if (!this.state.person) {
-      return <span>Select a person from a list</span>
+    const { person } = this.state;
+    if (!person) {
+      return <span>Select a person from a list</span>;
     }
 
-    const { id, name, gender, birthYear, eyeColor } = this.state.person;
-
-    if (!this.state.person) {
-      return < Spinner />;
-    }
+    const { id, name, gender,
+              birthYear, eyeColor } = person;
 
     return (
       <div className="person-details card">
         <img className="person-image"
-          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} 
+          src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`}
           alt="character"/>
 
         <div className="card-body">
@@ -70,6 +67,7 @@ export default class PersonDetails extends Component {
               <span>{eyeColor}</span>
             </li>
           </ul>
+          <ErrorButton />
         </div>
       </div>
     )
